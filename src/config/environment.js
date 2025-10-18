@@ -12,7 +12,8 @@ const environment = {
   
   // Get the actual API URL based on proxy setting
   get API_URL() {
-    if (this.USE_PROXY && this.IS_PRODUCTION) {
+    // Always use proxy in production to avoid mixed content issues
+    if (this.IS_PRODUCTION) {
       return '/api/proxy'; // Use Vercel proxy in production
     }
     return this.API_BASE_URL; // Use direct URL in development
@@ -43,16 +44,16 @@ if (environment.IS_PRODUCTION && environment.API_BASE_URL.startsWith('http://') 
   console.warn('⚠️ Using HTTP API in production - mixed content may be blocked by browsers')
 }
 
-// Development logging
-if (environment.IS_DEVELOPMENT) {
-  console.log('🔧 Environment Configuration:', {
-    API_BASE_URL: environment.API_BASE_URL,
-    API_URL: environment.API_URL,
-    USE_PROXY: environment.USE_PROXY,
-    ENVIRONMENT: environment.ENVIRONMENT,
-    CACHE_TTL: environment.CACHE_TTL,
-    DISABLE_HTTPS_CHECK: environment.DISABLE_HTTPS_CHECK,
-  })
-}
+// Logging for both development and production
+console.log('🔧 Environment Configuration:', {
+  API_BASE_URL: environment.API_BASE_URL,
+  API_URL: environment.API_URL,
+  USE_PROXY: environment.USE_PROXY,
+  IS_PRODUCTION: environment.IS_PRODUCTION,
+  IS_DEVELOPMENT: environment.IS_DEVELOPMENT,
+  ENVIRONMENT: environment.ENVIRONMENT,
+  CACHE_TTL: environment.CACHE_TTL,
+  DISABLE_HTTPS_CHECK: environment.DISABLE_HTTPS_CHECK,
+})
 
 export default environment
