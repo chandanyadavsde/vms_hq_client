@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 min-h-screen font-sans;
+  }
+  
+  * {
+    font-family: 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+  }
+}
+
+@layer components {
+  .glass-effect {
+    @apply bg-white/10 backdrop-blur-md border border-white/20;
+  }
+  
+  .wind-particle {
+    @apply absolute w-2 h-2 bg-white/60 rounded-full;
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;  /* Safari and Chrome */
+  }
+  
+  /* Space Grotesk Font Utilities */
+  .font-space-grotesk {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  
+  .font-space-grotesk-light {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 300;
+  }
+  
+  .font-space-grotesk-medium {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500;
+  }
+  
+  .font-space-grotesk-semibold {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+  }
+  
+  .font-space-grotesk-bold {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+  }
+} 
