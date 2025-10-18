@@ -6,8 +6,17 @@
 const environment = {
   // API Configuration
   API_BASE_URL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000',
+  USE_PROXY: import.meta.env.VITE_USE_PROXY === 'true',
   API_TIMEOUT: parseInt(import.meta.env.VITE_API_TIMEOUT) || 10000,
   CACHE_TTL: parseInt(import.meta.env.VITE_CACHE_TTL) || 300000, // 5 minutes
+  
+  // Get the actual API URL based on proxy setting
+  get API_URL() {
+    if (this.USE_PROXY && this.IS_PRODUCTION) {
+      return '/api/proxy'; // Use Vercel proxy in production
+    }
+    return this.API_BASE_URL; // Use direct URL in development
+  },
 
   // Application Configuration
   ENVIRONMENT: import.meta.env.VITE_ENVIRONMENT || 'development',
@@ -38,6 +47,8 @@ if (environment.IS_PRODUCTION && environment.API_BASE_URL.startsWith('http://') 
 if (environment.IS_DEVELOPMENT) {
   console.log('🔧 Environment Configuration:', {
     API_BASE_URL: environment.API_BASE_URL,
+    API_URL: environment.API_URL,
+    USE_PROXY: environment.USE_PROXY,
     ENVIRONMENT: environment.ENVIRONMENT,
     CACHE_TTL: environment.CACHE_TTL,
     DISABLE_HTTPS_CHECK: environment.DISABLE_HTTPS_CHECK,

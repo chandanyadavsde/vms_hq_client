@@ -7,7 +7,7 @@ import environment from './environment.js'
 
 // Base API Configuration
 export const API_CONFIG = {
-  BASE_URL: environment.API_BASE_URL,
+  BASE_URL: environment.API_URL, // Use the dynamic API_URL that handles proxy
   TIMEOUT: environment.API_TIMEOUT,
   CACHE_TTL: environment.CACHE_TTL,
 }
