@@ -17,6 +17,7 @@ const environment = {
   ENABLE_SEARCH: import.meta.env.VITE_ENABLE_SEARCH !== 'false',
   ENABLE_PAGINATION: import.meta.env.VITE_ENABLE_PAGINATION !== 'false',
   ENABLE_CACHING: import.meta.env.VITE_ENABLE_CACHING !== 'false',
+  DISABLE_HTTPS_CHECK: import.meta.env.VITE_DISABLE_HTTPS_CHECK === 'true',
 
   // Derived values
   IS_DEVELOPMENT: import.meta.env.MODE === 'development',
@@ -28,12 +29,18 @@ if (!environment.API_BASE_URL) {
   console.error('❌ API_BASE_URL is required but not configured')
 }
 
+// HTTPS Warning
+if (environment.IS_PRODUCTION && environment.API_BASE_URL.startsWith('http://') && !environment.DISABLE_HTTPS_CHECK) {
+  console.warn('⚠️ Using HTTP API in production - mixed content may be blocked by browsers')
+}
+
 // Development logging
 if (environment.IS_DEVELOPMENT) {
   console.log('🔧 Environment Configuration:', {
     API_BASE_URL: environment.API_BASE_URL,
     ENVIRONMENT: environment.ENVIRONMENT,
     CACHE_TTL: environment.CACHE_TTL,
+    DISABLE_HTTPS_CHECK: environment.DISABLE_HTTPS_CHECK,
   })
 }
 
